@@ -1,23 +1,38 @@
-import React, { Component } from 'react';
-import logo from '../logo.svg';
-import '../stylesheets/Header.css';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import MenuIcon from '@material-ui/icons/Menu';
 
-class Header extends Component {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
-  navTo(uri){
-    window.location.href = window.location.origin + uri;
-  }
+export default function ButtonAppBar() {
+  const classes = useStyles();
 
-  render() {
-    return (
-      <div className="App-header">
-        <h1 onClick={() => {this.navTo('')}}>Udacitrivia</h1>
-        <h2 onClick={() => {this.navTo('')}}>List</h2>
-        <h2 onClick={() => {this.navTo('/add')}}>Add</h2>
-        <h2 onClick={() => {this.navTo('/play')}}>Play</h2>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Udacitrivia
+          </Typography>
+          <Button color="inherit">List</Button>
+          <Button color="inherit">Add</Button>
+          <Button color="inherit">Play</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
-
-export default Header;
