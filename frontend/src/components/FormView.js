@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import { makeStyles } from '@material-ui/core/styles';
+import { FormControl, Input, InputLabel, OutlinedInput, Select, MenuItem, Button } from '@material-ui/core';
 
 import '../stylesheets/FormView.css';
 
@@ -68,35 +70,35 @@ class FormView extends Component {
       <div id="add-form">
         <h2>Add a New Trivia Question</h2>
         <form className="form-view" id="add-question-form" onSubmit={this.submitQuestion}>
-          <label>
-            Question
-            <input type="text" name="question" onChange={this.handleChange}/>
-          </label>
-          <label>
-            Answer
-            <input type="text" name="answer" onChange={this.handleChange}/>
-          </label>
-          <label>
-            Difficulty
-            <select name="difficulty" onChange={this.handleChange}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </label>
-          <label>
-            Category
-            <select name="category" onChange={this.handleChange}>
-              {Object.keys(this.state.categories).map(id => {
-                  return (
-                    <option key={id} value={id}>{this.state.categories[id]}</option>
-                  )
-                })}
-            </select>
-          </label>
-          <input type="submit" className="button" value="Submit" />
+            <FormControl>
+                <InputLabel name="question-label" htmlFor="inputQuestion">Question</InputLabel>
+                <Input id="inputQuestion" type="text" name="question" onChange={this.handleChange}/>
+            </FormControl>
+            <FormControl>
+                <InputLabel name="answer-label" htmlFor="inputAnswer">Answer</InputLabel>
+                <Input id="inputAnswer" type="text" name="answer" onChange={this.handleChange}/>
+            </FormControl>
+            <FormControl>
+                <InputLabel id="difficulty-label">Difficulty</InputLabel>
+                <Select labelId="difficulty-label" id="selectDifficulty" onChange={this.handleChange}>
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl>
+                <InputLabel id="category-label">Category</InputLabel>
+                <Select labelId="category-label" id="selectCategory" onChange={this.handleChange}>
+                    {Object.keys(this.state.categories).map(id => {
+                        return (
+                            <MenuItem key={id} value={id}>{this.state.categories[id]}</MenuItem>
+                        )
+                    })}
+                </Select>
+            </FormControl>
+            <Button variant="contained" size="large" color="primary">Submit</Button>
         </form>
       </div>
     );
