@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FormControl, Input, InputLabel, OutlinedInput, Button } from '@material-ui/core';
 
 class Search extends Component {
   state = {
@@ -19,12 +20,13 @@ class Search extends Component {
   render() {
     return (
       <form onSubmit={this.getInfo}>
-        <input
-          placeholder="Search questions..."
-          ref={input => this.search = input}
-          onChange={this.handleInputChange}
-        />
-        <input type="submit" value="Submit" className="button"/>
+        <FormControl>
+            <InputLabel name="search-label" htmlFor="inputSearch">Search questions...</InputLabel>
+            <Input id="inputSearch" type="text" name="search"
+                ref={input => this.search = input}
+                onChange={this.handleInputChange}/>
+        </FormControl>
+        <Button variant="contained" size="large" color="primary">Submit</Button>
       </form>
     )
   }
