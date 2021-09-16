@@ -1,19 +1,20 @@
-import os
-from flask import Flask, request, abort, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from flask_cors import CORS
-import random
 
-from models import setup_db, Question, Category
+from backend.app.routes.categories import category_bp
+from backend.app.models import setup_db
 
 QUESTIONS_PER_PAGE = 10
 
 
 def create_app(test_config=None):
-    # create and configure the app
+    # Create and configure the app
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
+
+    # Blueprints
+    app.register_blueprint(category_bp)
 
     # CORS Headers
     @app.after_request
