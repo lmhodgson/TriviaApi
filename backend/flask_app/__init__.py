@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
 
-from backend.app.routes.categories import category_bp
-from backend.app.routes.questions import question_bp
-from backend.app.models import setup_db
+from backend.flask_app.routes.categories import category_bp
+from backend.flask_app.routes.questions import question_bp
+from backend.flask_app.models import setup_db
 
 QUESTIONS_PER_PAGE = 10
 

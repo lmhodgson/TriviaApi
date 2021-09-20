@@ -2,7 +2,7 @@ from os import abort
 
 from flask import Blueprint, jsonify
 
-from backend.app.models import Category
+from backend.flask_app.models import Category
 
 category_bp = Blueprint('categories', __name__, url_prefix='/categories')
 

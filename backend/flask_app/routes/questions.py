@@ -2,7 +2,7 @@ from os import abort
 
 from flask import Blueprint, jsonify
 
-from backend.app.models import Question
+from backend.flask_app.models import Question
 
 question_bp = Blueprint('questions', __name__, url_prefix='/questions')
 
