@@ -9,11 +9,12 @@ category_bp = Blueprint('categories', __name__, url_prefix='/categories')
 
 @category_bp.route("/")
 def retrieve_categories():
-    """ Retrieves a list of all categories.
+    """Retrieves a list of all categories.
 
-        Returns: A json object containing whether the request was successful
-            and the list of categories.
-        """
+    Returns:
+        JsonObject: A json object containing whether the request was 
+        successful and the list of categories.
+    """
 
     categories = Category.query.order_by(Category.id).all()
 

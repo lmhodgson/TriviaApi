@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from backend.app.routes.categories import category_bp
+from backend.app.routes.questions import question_bp
 from backend.app.models import setup_db
 
 QUESTIONS_PER_PAGE = 10
@@ -15,6 +16,7 @@ def create_app(test_config=None):
 
     # Blueprints
     app.register_blueprint(category_bp)
+    app.register_blueprint(question_bp)
 
     # CORS Headers
     @app.after_request
@@ -33,12 +35,6 @@ def create_app(test_config=None):
 
     '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
-  '''
-
-    '''
-  @TODO: 
-  Create an endpoint to handle GET requests 
-  for all available categories.
   '''
 
     '''
