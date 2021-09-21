@@ -1,10 +1,8 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 
-from .routes import category_bp
+from .routes import category_bp, question_bp
 from .models import setup_db
-
-QUESTIONS_PER_PAGE = 10
 
 
 def create_app():
@@ -15,6 +13,10 @@ def create_app():
 
     # Blueprints
     app.register_blueprint(category_bp)
+    app.register_blueprint(question_bp)
+
+    # Setup CORS
+    CORS(app, resources={'/': {'origins': '*'}})
 
     # CORS Headers
     @app.after_request
@@ -27,13 +29,39 @@ def create_app():
         )
         return response
 
-    '''
-  @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
-  '''
+    # Error Handlers
 
-    '''
-  @TODO: Use the after_request decorator to set Access-Control-Allow
-  '''
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return jsonify({
+            "success": False,
+            "error": 500,
+            "message": "Internal Server Error"
+        }), 500
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            "success": False,
+            "error": 404,
+            "message": "Resource Not Found"
+        }), 404
+
+    @app.errorhandler(422)
+    def unprocessable_entity(error):
+        return jsonify({
+            "success": False,
+            "error": 422,
+            "message": "Unprocessable Entity"
+        }), 422
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            "success": False,
+            "error": 400,
+            "message": "Bad Request"
+        }), 400
 
     '''
   @TODO: 
@@ -97,12 +125,6 @@ def create_app():
   TEST: In the "Play" tab, after a user selects "All" or a category,
   one question at a time is displayed, the user is allowed to answer
   and shown whether they were correct or not. 
-  '''
-
-    '''
-  @TODO: 
-  Create error handlers for all expected errors 
-  including 404 and 422. 
   '''
 
     return app

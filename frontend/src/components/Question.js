@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import '../stylesheets/Question.css';
 
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+
 class Question extends Component {
   constructor(){
     super();
@@ -16,6 +23,7 @@ class Question extends Component {
   render() {
     const { question, answer, category, difficulty } = this.props;
     return (
+
       <div className="Question-holder">
         <div className="Question">{question}</div>
         <div className="Question-status">

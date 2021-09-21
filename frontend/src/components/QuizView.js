@@ -20,14 +20,11 @@ class QuizView extends Component {
     }
   }
 
-  let requestPath = 'http://127.0.0.1:5000';
-
   componentDidMount(){
     $.ajax({
-      url: requestPath + '/categories',
+      url: 'http://127.0.0.1:5000/categories',
       type: "GET",
       success: (result) => {
-        console.log(result);
         this.setState({ categories: result.categories })
         return;
       },
@@ -51,7 +48,7 @@ class QuizView extends Component {
     if(this.state.currentQuestion.id) { previousQuestions.push(this.state.currentQuestion.id) }
 
     $.ajax({
-      url: requestPath + '/quizzes',
+      url: 'http://127.0.0.1:5000/quizzes',
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',

@@ -34,8 +34,9 @@
 }
 
 .Question {
-  font-size: 21px;
+  font-size: 20px;
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .answer-holder {
@@ -51,6 +52,7 @@
   color: white;
   padding: 3px 5px;
   margin-left: 0px !important;
+  cursor: pointer;
 }
 
 span.page-num {
@@ -72,4 +74,5 @@ img.category {
 
 img.delete {
   width: 20px;
+  cursor: pointer;
 }

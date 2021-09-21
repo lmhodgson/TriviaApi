@@ -31,7 +31,7 @@ export default function ButtonAppBar() {
               <Typography variant="h6" className={classes.title}>
                 Udacitrivia
               </Typography>
-              <ul class="menu-list">
+              <ul className="menu-list">
                   <li>
                     <Link to="/"><Button>List</Button></Link>
                     <Link to="/add"><Button>Add</Button></Link>
