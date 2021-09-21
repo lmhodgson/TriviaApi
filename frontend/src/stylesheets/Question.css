@@ -6,6 +6,16 @@
 .categories-list {
   flex-basis: 25%;
   flex-shrink: 2;
+
+}
+
+.categories-list > ul {
+    max-width: 200px;
+    margin: auto;
+}
+
+.categories-list li {
+    text-align: left;
 }
 
 .categories-list > form {
@@ -56,6 +66,7 @@ span.page-num.active {
 img.category {
   width: 30px;
   margin-right: 10px;
+  vertical-align: middle;
 }
 
 .questions-list img.category {
