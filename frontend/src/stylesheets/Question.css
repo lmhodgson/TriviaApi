@@ -15,6 +15,11 @@
 .questions-list {
   flex-basis: 75%;
   text-align: center;
+  max-width: 700px;
+}
+
+.questions-list > div {
+    margin-bottom: 30px;
 }
 
 .Question-holder {
@@ -24,35 +29,15 @@
   margin: 7px;
 }
 
-.Question-status {
-  display: flex;
-  flex-direction: row;
-  height: 30px;
-  width: 200px;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .Question {
   font-size: 20px;
   width: 100%;
   padding-bottom: 10px;
 }
 
-.answer-holder {
-  font-size: 25px;
-  height: 25px;
-  margin: 5px 0px;
-}
-
-.show-answer {
-  width: 100px;
-  margin-top: 5px;
-  background-color: dodgerblue;
-  color: white;
-  padding: 3px 5px;
-  margin-left: 0px !important;
-  cursor: pointer;
+.difficulty {
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 span.page-num {
@@ -70,6 +55,11 @@ span.page-num.active {
 
 img.category {
   width: 30px;
+  margin-right: 10px;
+}
+
+.questions-list img.category {
+    float: left;
 }
 
 img.delete {
