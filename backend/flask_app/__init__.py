@@ -1,14 +1,13 @@
 from flask import Flask
 from flask_cors import CORS
 
-from backend.flask_app.routes.categories import category_bp
-from backend.flask_app.routes.questions import question_bp
-from backend.flask_app.models import setup_db
+from .routes import category_bp
+from .models import setup_db
 
 QUESTIONS_PER_PAGE = 10
 
 
-def create_app(test_config=None):
+def create_app():
     # Create and configure the app
     app = Flask(__name__)
     setup_db(app)
@@ -16,7 +15,6 @@ def create_app(test_config=None):
 
     # Blueprints
     app.register_blueprint(category_bp)
-    app.register_blueprint(question_bp)
 
     # CORS Headers
     @app.after_request
