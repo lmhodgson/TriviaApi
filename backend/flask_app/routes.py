@@ -36,12 +36,10 @@ def retrieve_categories():
         if len(categories) == 0:
             abort(404)
 
-        return jsonify(
-            {
+        return jsonify({
                 "success": True,
                 "categories": categories
-            }
-        )
+            })
     except:
         abort(500)
 
@@ -57,7 +55,7 @@ def retrieve_questions():
     """
 
     try:
-        all_questions = Question.query.all()
+        all_questions = Question.query.order_by(Question.id).all()
         total_questions = len(all_questions)
         current_questions = paginate_questions(request, all_questions)
 
@@ -65,7 +63,7 @@ def retrieve_questions():
         if len(current_questions) == 0:
             abort(404)
 
-        categories = Category.query.all()
+        categories = Category.query.order_by(Category.id).all()
 
         # Create a dictionary from categories result
         categories_dict = dict((cat.id, cat.type) for cat in categories)
@@ -123,7 +121,8 @@ def retrieve_questions_for_category(category_id):
     try:
         category = Category.query.get_or_404(category_id)
 
-        questions = Question.query.filter_by(category=category.id).all()
+        questions = Question.query.filter_by(category=category.id)\
+            .order_by(Question.id).all()
         total_questions = len(questions)
         current_questions = paginate_questions(request, questions)
 
@@ -139,3 +138,89 @@ def retrieve_questions_for_category(category_id):
     except:
         abort(500)
 
+
+@question_bp.route('/', methods=['POST'])
+def post_or_search_questions():
+    """Handles POST requests for creating new questions
+        and searching questions.
+    """
+
+    body = request.get_json()
+
+    search_term = body.get('searchTerm')
+
+    if search_term:
+        return search_questions(search_term)
+    else:
+        question = body.get('question')
+        answer = body.get('answer')
+        difficulty = body.get('difficulty')
+        category = body.get('category')
+        return post_question(question, answer, difficulty, category)
+
+
+def search_questions(search_term):
+    """ Searches questions in the database for the user's query.
+
+    Returns:
+        JsonObject: A json object containing whether the request was
+        successful, the total questions and the questions that match the
+        user's search query.
+    """
+
+    try:
+        # ilike makes the search case-insensitive
+        results = Question.query.filter(
+            Question.question.ilike(f'%{search_term}%'))\
+            .order_by(Question.id).all()
+
+        # Abort if no questions are found
+        if len(results) == 0:
+            abort(404)
+
+        all_questions = Question.query.order_by(Question.id).all()
+        total_questions = len(all_questions)
+        current_questions = paginate_questions(request, results)
+
+        return jsonify({
+            'success': True,
+            'questions': current_questions,
+            'total_questions': total_questions
+        })
+    except:
+        abort(500)
+
+
+def post_question(question, answer, difficulty, category):
+    """ Creates a question within the database if the form submission is valid.
+
+        Returns:
+            JsonObject: A json object containing whether the request was
+            successful, the total questions and the current page of questions.
+        """
+
+    # Validate all request arguments have data
+    if ((question is None) or (answer is None)
+            or (difficulty is None) or (category is None)):
+        abort(422)
+
+    try:
+        new_question = Question(question=question, answer=answer,
+                                difficulty=difficulty, category=category)
+
+        db.session.add(new_question)
+        db.session.commit()
+
+        all_questions = Question.query.order_by(Question.id).all()
+        total_questions = len(all_questions)
+        current_questions = paginate_questions(request, all_questions)
+
+        return jsonify({
+            'success': True,
+            'questions': current_questions,
+            'total_questions': total_questions
+        })
+
+    except:
+        db.session.rollback()
+        abort(500)
