@@ -3,8 +3,8 @@ import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
 
-from backend.flask_app import create_app
-from backend.flask_app.models import setup_db
+from flask_app import create_app
+from flask_app.models import setup_db
 
 
 class TriviaTestCase(unittest.TestCase):
