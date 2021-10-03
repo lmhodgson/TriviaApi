@@ -30,13 +30,21 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    def test_get_categories(self):
-        res = self.client().get("/categories")
+    def test_get_questions(self):
+        res = self.client().get("/questions")
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)
-        self.assertTrue(data["categories"])
+        self.assertTrue(data["questions"])
+
+    # def test_get_categories(self):
+    #     res = self.client().get("/categories")
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 200)
+    #     self.assertEqual(data["success"], True)
+    #     self.assertTrue(data["categories"])
 
 
 # Make the tests conveniently executable

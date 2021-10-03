@@ -1,4 +1,5 @@
 from os import abort
+from random import randrange, random
 
 from flask import Blueprint, jsonify, request
 
@@ -6,6 +7,7 @@ from .models import db, Category, Question
 
 category_bp = Blueprint('categories', __name__, url_prefix='/categories')
 question_bp = Blueprint('questions', __name__, url_prefix='/questions')
+quizzes_bp = Blueprint('quizzes', __name__, url_prefix='/quizzes')
 
 QUESTIONS_PER_PAGE = 10
 
@@ -21,7 +23,7 @@ def paginate_questions(questions_request, selection):
     return current_questions
 
 
-@category_bp.route("/")
+@category_bp.route('/')
 def retrieve_categories():
     """Retrieves a list of all categories.
 
@@ -36,15 +38,18 @@ def retrieve_categories():
         if len(categories) == 0:
             abort(404)
 
+        # Create a dictionary from categories result
+        categories_dict = dict((cat.id, cat.type) for cat in categories)
+
         return jsonify({
-                "success": True,
-                "categories": categories
+                'success': True,
+                'categories': categories_dict
             })
     except:
         abort(500)
 
 
-@question_bp.route("/")
+@question_bp.route('/')
 def retrieve_questions():
     """Retrieves a list of all questions.
 
@@ -223,4 +228,46 @@ def post_question(question, answer, difficulty, category):
 
     except:
         db.session.rollback()
+        abort(500)
+
+
+@quizzes_bp.route('/', methods=['POST'])
+def get_random_quiz_question():
+    """ Gets random questions within the given category if provided,
+        and that is not one of the previous questions.
+
+        Returns:
+            JsonObject: A json object containing whether the request was
+            successful, the total questions and the current page of questions.
+        """
+
+    body = request.get_json()
+    try:
+        previous_questions = body.get('previous_questions')
+        category_id = body.get('quiz_category')['id']
+
+        if category_id == 0:
+            questions = Question.query.filter(
+                Question.id.notin_(previous_questions))\
+                .order_by(Question.id).all()
+        else:
+            category = Category.query.get_or_404(category_id)
+
+            questions = Question.query.filter_by(category=category.id) \
+                .filter(Question.id.notin_(previous_questions)) \
+                .order_by(Question.id).all()
+
+        question_count = len(questions)
+        if question_count == 0:
+            abort(404)
+
+        random_question_id = random.randrange(0, question_count)
+        current_question = questions[random_question_id]
+
+        return jsonify({
+            'success': True,
+            'question': current_question,
+            'total_questions': question_count
+        })
+    except:
         abort(500)

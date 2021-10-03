@@ -98,7 +98,7 @@ class FormView extends Component {
                     })}
                 </Select>
             </FormControl>
-            <Button variant="contained" size="large" color="primary">Submit</Button>
+            <Button type="submit" variant="contained" size="large" color="primary">Submit</Button>
         </form>
       </div>
     );

@@ -26,7 +26,7 @@ class Search extends Component {
                 ref={input => this.search = input}
                 onChange={this.handleInputChange}/>
         </FormControl>
-        <Button variant="contained" size="large" color="primary">Submit</Button>
+        <Button type="submit" variant="contained" size="large" color="primary">Submit</Button>
       </form>
     )
   }
