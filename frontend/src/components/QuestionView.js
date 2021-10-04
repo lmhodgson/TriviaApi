@@ -23,7 +23,7 @@ class QuestionView extends Component {
 
   getQuestions = () => {
     $.ajax({
-      url: 'http://127.0.0.1:5000' + `/questions?page=${this.state.page}`,
+      url: `/questions?page=${this.state.page}`,
       type: "GET",
       success: (result) => {
         this.setState({
@@ -60,7 +60,7 @@ class QuestionView extends Component {
 
   getByCategory= (id) => {
     $.ajax({
-      url: 'http://127.0.0.1:5000' + `/categories/${id}/questions`,
+      url: `/categories/${id}/questions`,
       type: "GET",
       success: (result) => {
         this.setState({
@@ -78,7 +78,7 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: 'http://127.0.0.1:5000/questions',
+      url: '/questions/search',
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -105,7 +105,7 @@ class QuestionView extends Component {
     if(action === 'DELETE') {
       if(window.confirm('Are you sure you want to delete the question?')) {
         $.ajax({
-          url: 'http://127.0.0.1:5000' + `/questions/${id}`,
+          url: `/questions/${id}`,
           type: "DELETE",
           success: (result) => {
             this.getQuestions();

@@ -1,10 +1,9 @@
-import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_app import create_app
-from flask_app.models import setup_db
+from flaskr import create_app
+from backend.flaskr.models import setup_db
 
 
 class TriviaTestCase(unittest.TestCase):
@@ -36,15 +35,24 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)
-        self.assertTrue(data["questions"])
+        self.assertTrue(data['total_questions'])
+        self.assertTrue(len(data['questions']))
+        self.assertTrue(len(data['categories']))
 
-    # def test_get_categories(self):
-    #     res = self.client().get("/categories")
-    #     data = json.loads(res.data)
-    #
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data["success"], True)
-    #     self.assertTrue(data["categories"])
+    def test_get_questions_404_invalid_page(self):
+        res = self.client().get('/questions?page=20')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+
+    def test_get_categories(self):
+        res = self.client().get("/categories")
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+        self.assertTrue(data["categories"])
 
 
 # Make the tests conveniently executable
