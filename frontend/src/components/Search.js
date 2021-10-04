@@ -11,9 +11,9 @@ class Search extends Component {
     this.props.submitSearch(this.state.query)
   }
 
-  handleInputChange = () => {
+  handleInputChange = (event) => {
     this.setState({
-      query: this.search.value
+      query: event.target.value
     })
   }
 
@@ -22,9 +22,7 @@ class Search extends Component {
       <form onSubmit={this.getInfo}>
         <FormControl>
             <InputLabel name="search-label" htmlFor="inputSearch">Search questions...</InputLabel>
-            <Input id="inputSearch" type="text" name="search"
-                ref={input => this.search = input}
-                onChange={this.handleInputChange}/>
+            <Input id="inputSearch" type="text" name="search" onChange={this.handleInputChange}/>
         </FormControl>
         <Button type="submit" variant="contained" size="large" color="primary">Submit</Button>
       </form>
