@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, Input, InputLabel, OutlinedInput, Select, MenuItem, Button } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
 
 import '../stylesheets/FormView.css';
 
@@ -65,12 +64,6 @@ class FormView extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  handleSelectChange = (event) => {
-    console.log(event);
-
-    this.setState({[event.target.name]: event.target.value})
-  }
-
   render() {
     return (
       <div id="add-form">
@@ -86,7 +79,7 @@ class FormView extends Component {
             </FormControl>
             <FormControl>
                 <InputLabel id="difficulty-label">Difficulty</InputLabel>
-                <Select labelId="difficulty-label" id="selectDifficulty" onChange={this.handleSelectChange}>
+                <Select labelId="difficulty-label" id="selectDifficulty" name="difficulty" onChange={this.handleChange}>
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
@@ -96,10 +89,10 @@ class FormView extends Component {
             </FormControl>
             <FormControl>
                 <InputLabel id="category-label">Category</InputLabel>
-                <Select labelId="category-label" id="selectCategory" onChange={this.handleSelectChange}>
+                <Select labelId="category-label" id="selectCategory" name="category" onChange={this.handleChange}>
                     {Object.keys(this.state.categories).map(id => {
                         return (
-                            <MenuItem value={id}>{this.state.categories[id]}</MenuItem>
+                            <MenuItem value={id} key={id}>{this.state.categories[id]}</MenuItem>
                         )
                     })}
                 </Select>

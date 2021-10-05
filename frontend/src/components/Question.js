@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../stylesheets/Question.css';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -25,7 +24,7 @@ class Question extends Component {
     return (
         <Card variant="outlined">
             <CardContent>
-                <img className="category" src={`${category.toLowerCase()}.svg`}/>
+                <img className="category" alt={category} src={`${category.toLowerCase()}.svg`}/>
                 {question}
                 <div className="difficulty">Difficulty: {difficulty}</div>
             </CardContent>

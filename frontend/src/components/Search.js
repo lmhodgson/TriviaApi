@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormControl, Input, InputLabel, OutlinedInput, Button } from '@material-ui/core';
+import { FormControl, Input, InputLabel, Button } from '@material-ui/core';
 
 class Search extends Component {
   state = {

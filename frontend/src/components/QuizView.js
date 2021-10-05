@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormControl, Input, OutlinedInput, Button } from '@material-ui/core';
+import { FormControl, Input, Button } from '@material-ui/core';
 import $ from 'jquery';
 
 import '../stylesheets/QuizView.css';
