@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormControl, Input, OutlinedInput, Button } from '@material-ui/core';
 import $ from 'jquery';
 
 import '../stylesheets/QuizView.css';
@@ -144,7 +145,7 @@ class QuizView extends Component {
         <div className="quiz-question">{this.state.currentQuestion.question}</div>
         <div className={`${evaluate ? 'correct' : 'wrong'}`}>{evaluate ? "You were correct!" : "You were incorrect"}</div>
         <div className="quiz-answer">{this.state.currentQuestion.answer}</div>
-        <div className="next-question button" onClick={this.getNextQuestion}> Next Question </div>
+        <Button variant="contained" size="large" color="primary" onClick={this.getNextQuestion}>Next Question</Button>
       </div>
     )
   }
@@ -158,9 +159,11 @@ class QuizView extends Component {
           <div className="quiz-play-holder">
             <div className="quiz-question">{this.state.currentQuestion.question}</div>
             <form onSubmit={this.submitGuess}>
-              <input type="text" name="guess" onChange={this.handleChange}/>
-              <input className="submit-guess button" type="submit" value="Submit Answer" />
-            </form>
+                <FormControl>
+                    <Input id="inputGuess" type="text" name="guess" onChange={this.handleChange}/>
+                </FormControl>
+                <Button type="submit" variant="contained" size="large" color="primary">Submit Answer</Button>
+              </form>
           </div>
         )
   }

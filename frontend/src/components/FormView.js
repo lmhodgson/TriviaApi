@@ -65,6 +65,12 @@ class FormView extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
+  handleSelectChange = (event) => {
+    console.log(event);
+
+    this.setState({[event.target.name]: event.target.value})
+  }
+
   render() {
     return (
       <div id="add-form">
@@ -80,7 +86,7 @@ class FormView extends Component {
             </FormControl>
             <FormControl>
                 <InputLabel id="difficulty-label">Difficulty</InputLabel>
-                <Select labelId="difficulty-label" id="selectDifficulty" onChange={this.handleChange}>
+                <Select labelId="difficulty-label" id="selectDifficulty" onChange={this.handleSelectChange}>
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
@@ -90,10 +96,10 @@ class FormView extends Component {
             </FormControl>
             <FormControl>
                 <InputLabel id="category-label">Category</InputLabel>
-                <Select labelId="category-label" id="selectCategory" onChange={this.handleChange}>
+                <Select labelId="category-label" id="selectCategory" onChange={this.handleSelectChange}>
                     {Object.keys(this.state.categories).map(id => {
                         return (
-                            <MenuItem key={id} value={id}>{this.state.categories[id]}</MenuItem>
+                            <MenuItem value={id}>{this.state.categories[id]}</MenuItem>
                         )
                     })}
                 </Select>
